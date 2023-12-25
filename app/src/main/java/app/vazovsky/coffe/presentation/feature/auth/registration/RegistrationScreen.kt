@@ -33,10 +33,10 @@ fun RegistrationScreen(
     val password = viewModel.passwordLiveData.observeAsState().value
     val repeatPassword = viewModel.repeatPasswordLiveData.observeAsState().value
 
-    val registerResult = viewModel.registerResultLiveData.observeAsState().value
+    val token = viewModel.tokenLiveData.observeAsState().value
 
-    LaunchedEffect(registerResult) {
-        registerResult?.doOnSuccess {
+    LaunchedEffect(token) {
+        token?.let {
             navigateToMain()
         }
     }

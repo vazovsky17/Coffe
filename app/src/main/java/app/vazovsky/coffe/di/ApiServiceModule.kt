@@ -4,6 +4,7 @@ import android.content.Context
 import app.vazovsky.coffe.data.remote.CoffeApiService
 import app.vazovsky.coffe.data.remote.MockCoffeApiService
 import app.vazovsky.coffe.data.remote.SemimockCoffeApiService
+import app.vazovsky.coffe.data.remote.base.CallAdapterFactory
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -24,36 +25,39 @@ object ApiServiceModule {
 
     @Singleton
     @Provides
-    fun provideClient(@ApplicationContext context: Context): OkHttpClient {
-        return OkHttpClient.Builder().build()
-    }
+    fun provideClient(
+        @ApplicationContext context: Context,
+    ): OkHttpClient = OkHttpClient.Builder().build()
 
 
     @Singleton
     @Provides
-    fun provideGson(): Gson {
-        return GsonBuilder().create()
-    }
+    fun provideGson(): Gson = GsonBuilder().create()
+
+    @Provides
+    @Singleton
+    fun provideCallAdapterFactory(): CallAdapterFactory = CallAdapterFactory()
 
     @Singleton
     @Provides
-    fun provideRetrofit(gson: Gson, client: OkHttpClient): Retrofit {
-        return Retrofit
-            .Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .client(client)
-            .build()
-    }
+    fun provideRetrofit(
+        gson: Gson,
+        client: OkHttpClient,
+        callAdapterFactory: CallAdapterFactory,
+    ): Retrofit = Retrofit
+        .Builder()
+        .baseUrl(BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(callAdapterFactory)
+        .client(client)
+        .build()
 
     @Singleton
     @Provides
     fun provideApiService(
         retrofit: Retrofit,
-    ): CoffeApiService {
-        return SemimockCoffeApiService(
-            apiService = retrofit.create(CoffeApiService::class.java),
-            mockApiService = MockCoffeApiService(),
-        )
-    }
+    ): CoffeApiService = SemimockCoffeApiService(
+        apiService = retrofit.create(CoffeApiService::class.java),
+        mockApiService = MockCoffeApiService(),
+    )
 }

@@ -1,9 +1,9 @@
 package app.vazovsky.coffe.presentation.feature.menu
 
-import app.vazovsky.coffe.presentation.feature.base.BaseViewModel
+import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class MenuViewModel @Inject constructor() : BaseViewModel() {
+class MenuViewModel @Inject constructor() : ViewModel() {
 }

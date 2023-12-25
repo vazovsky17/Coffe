@@ -32,10 +32,10 @@ fun LoginScreen(
     val email = viewModel.emailLiveData.observeAsState().value
     val password = viewModel.passwordLiveData.observeAsState().value
 
-    val loginResult = viewModel.loginResultLiveData.observeAsState().value
+    val token = viewModel.tokenLiveData.observeAsState().value
 
-    LaunchedEffect(loginResult) {
-        loginResult?.doOnSuccess {
+    LaunchedEffect(token) {
+        token?.let {
             navigateToMain()
         }
     }
