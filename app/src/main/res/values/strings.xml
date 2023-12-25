@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Coffe</string>
+
+    <!-- Registration -->
+    <string name="registration_topbar_title">Регистрация</string>
+    <string name="registration_email">e-mail</string>
+    <string name="registration_password">Пароль</string>
+    <string name="registration_repeat_password">Повторите пароль</string>
+    <string name="registration_confirm">Регистрация</string>
+    <string name="registration_yet_registered">Уже зарегистрированы?</string>
+    <string name="login_topbar_title">Вход</string>
+    <string name="map_topbar_title">Карта</string>
+    <string name="menu_topbar_title">Меню</string>
+    <string name="order_topbar_title">Ваш заказ</string>
+    <string name="shops_topbar_title">Ближайшие кофейни</string>
+    <string name="login_not_registered">Еще не зарегистрированы?</string>
+    <string name="login_confirm">Войти</string>
 </resources>

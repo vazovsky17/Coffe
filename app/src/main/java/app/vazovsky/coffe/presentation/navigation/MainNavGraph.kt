@@ -51,16 +51,14 @@ fun MainNavGraph() {
                 composable(AuthScreen.Registration.route) {
                     RegistrationScreen(
                         navigateToLogin = navigationActions::navigateToLogin,
-                        navigateToShops = navigationActions::navigateToShops,
-                        navigateToMap = navigationActions::navigateToMap,
-                        navigateToMenu = navigationActions::navigateToMenu,
-                        navigateToOrder = navigationActions::navigateToOrder,
+                        onConfirmClick = navigationActions::navigateToMain,
                     )
                 }
 
                 composable(AuthScreen.Login.route) {
                     LoginScreen(
-                        navigateToRegistration = navigationActions::navigateUp
+                        navigateToRegistration = navigationActions::navigateUp,
+                        onConfirmClick = navigationActions::navigateToMain,
                     )
                 }
             }
@@ -68,19 +66,27 @@ fun MainNavGraph() {
             navigation(route = Graph.MAIN, startDestination = MainScreen.Shops.route) {
 
                 composable(MainScreen.Shops.route) {
-                    ShopsScreen()
+                    ShopsScreen(
+                        onBackPressed = navigationActions::navigateUp,
+                    )
                 }
 
                 composable(MainScreen.Map.route) {
-                    MapScreen()
+                    MapScreen(
+                        onBackPressed = navigationActions::navigateUp,
+                    )
                 }
 
                 composable(MainScreen.Menu.route) {
-                    MenuScreen()
+                    MenuScreen(
+                        onBackPressed = navigationActions::navigateUp,
+                    )
                 }
 
                 composable(MainScreen.Order.route) {
-                    OrderScreen()
+                    OrderScreen(
+                        onBackPressed = navigationActions::navigateUp,
+                    )
                 }
             }
         }
