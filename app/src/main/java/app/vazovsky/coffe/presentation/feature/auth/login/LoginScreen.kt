@@ -11,6 +11,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,11 +26,19 @@ import app.vazovsky.coffe.presentation.view.TopBar
 @Composable
 fun LoginScreen(
     navigateToRegistration: () -> Unit,
-    onConfirmClick: () -> Unit,
+    navigateToMain: () -> Unit,
 ) {
     val viewModel: LoginViewModel = hiltViewModel()
     val email = viewModel.emailLiveData.observeAsState().value
     val password = viewModel.passwordLiveData.observeAsState().value
+
+    val loginResult = viewModel.loginResultLiveData.observeAsState().value
+
+    LaunchedEffect(loginResult) {
+        loginResult?.doOnSuccess {
+            navigateToMain()
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -67,7 +76,13 @@ fun LoginScreen(
 
             Button(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = onConfirmClick,
+                onClick = {
+                    // TODO сделать проверку на пустое и отобразить какой-нибудь снекбар
+                    viewModel.login(
+                        login = email.orDefault(),
+                        password = password.orDefault(),
+                    )
+                },
             ) {
                 Text(text = stringResource(R.string.login_confirm))
             }

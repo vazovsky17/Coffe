@@ -51,14 +51,14 @@ fun MainNavGraph() {
                 composable(AuthScreen.Registration.route) {
                     RegistrationScreen(
                         navigateToLogin = navigationActions::navigateToLogin,
-                        onConfirmClick = navigationActions::navigateToMain,
+                        navigateToMain = navigationActions::navigateToMain,
                     )
                 }
 
                 composable(AuthScreen.Login.route) {
                     LoginScreen(
                         navigateToRegistration = navigationActions::navigateUp,
-                        onConfirmClick = navigationActions::navigateToMain,
+                        navigateToMain = navigationActions::navigateToMain,
                     )
                 }
             }

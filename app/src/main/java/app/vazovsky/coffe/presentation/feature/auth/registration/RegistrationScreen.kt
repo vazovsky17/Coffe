@@ -7,11 +7,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,16 +23,23 @@ import app.vazovsky.coffe.extensions.orDefault
 import app.vazovsky.coffe.presentation.view.Space
 import app.vazovsky.coffe.presentation.view.TopBar
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegistrationScreen(
     navigateToLogin: () -> Unit,
-    onConfirmClick: () -> Unit,
+    navigateToMain: () -> Unit,
 ) {
     val viewModel: RegistrationViewModel = hiltViewModel()
     val email = viewModel.emailLiveData.observeAsState().value
     val password = viewModel.passwordLiveData.observeAsState().value
     val repeatPassword = viewModel.repeatPasswordLiveData.observeAsState().value
+
+    val registerResult = viewModel.registerResultLiveData.observeAsState().value
+
+    LaunchedEffect(registerResult) {
+        registerResult?.doOnSuccess {
+            navigateToMain()
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -81,7 +88,13 @@ fun RegistrationScreen(
 
             Button(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = onConfirmClick,
+                onClick = {
+                    // TODO сделать проверку на пустое и на повторенный пароль и отобразить какой-нибудь снекбар
+                    viewModel.register(
+                        login = email.orDefault(),
+                        password = password.orDefault(),
+                    )
+                },
             ) {
                 Text(text = stringResource(R.string.registration_confirm))
             }
