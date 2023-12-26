@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
@@ -24,10 +25,13 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -46,9 +50,11 @@ fun OrderScreen(
     products: List<Product>,
     onBackPressed: () -> Unit,
 ) {
+    val context = LocalContext.current
     val viewModel: OrderViewModel = hiltViewModel()
     val selectedProducts = viewModel.productsLiveData.observeAsState().value
     val isOrderPaid = viewModel.isOrderPaid.observeAsState().value.orDefault()
+    val defaultCardHeight = 70.dp
 
     SideEffect {
         if (selectedProducts == null) {
@@ -83,23 +89,33 @@ fun OrderScreen(
                 ) {
                     items(selectedProducts, key = { item -> item.id }) { product ->
                         ProductCard(
+                            height = defaultCardHeight,
                             product = product,
                             selectProduct = { viewModel.selectProduct(product) },
                             unselectProduct = { viewModel.unselectProduct(product) },
                         )
                     }
                     item {
+                        if (isOrderPaid) {
+                            val availableHeight =
+                                LocalConfiguration.current.screenHeightDp.dp - innerPadding.calculateTopPadding() - innerPadding.calculateBottomPadding() - 80.dp
+                            val height = availableHeight - (defaultCardHeight + 6.dp) * selectedProducts.size
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxSize(1F)
+                                    .requiredHeight(height),
+                                verticalArrangement = Arrangement.Center
+                            ) {
+                                Text(
+                                    modifier = Modifier.fillMaxWidth(1F),
+                                    text = stringResource(R.string.order_paid),
+                                    textAlign = TextAlign.Center,
+                                    style = MaterialTheme.typography.titleSmall.copy(fontSize = 24.sp),
+                                    color = CoyoteBrown,
+                                )
+                            }
+                        }
                     }
-                }
-
-                if (isOrderPaid) {
-                    Text(
-                        modifier = Modifier.align(Alignment.Center),
-                        text = stringResource(R.string.order_paid),
-                        textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.titleSmall.copy(fontSize = 24.sp),
-                        color = CoyoteBrown,
-                    )
                 }
 
                 AppButton(
@@ -124,12 +140,15 @@ fun OrderScreen(
 
 @Composable
 fun ProductCard(
+    height: Dp,
     product: Product,
     selectProduct: () -> Unit,
     unselectProduct: () -> Unit,
 ) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .requiredHeight(height),
         colors = CardDefaults.cardColors(containerColor = Champagne),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 2.dp
@@ -178,7 +197,6 @@ fun ProductCard(
                     )
                 }
                 Text(
-                    modifier = Modifier.fillMaxHeight(),
                     text = product.count.toString(),
                     style = MaterialTheme.typography.bodyMedium.copy(fontSize = 16.sp),
                     color = CoyoteBrown,
