@@ -32,4 +32,11 @@
     <!-- Order -->
     <string name="order_topbar_title">Ваш заказ</string>
     <string name="order_confirm">Оплатить</string>
+
+    <!-- Unauthorized Dialog -->
+    <string name="unauthorized_dialog_title">Время действия токена истекло</string>
+    <string name="unauthorized_dialog_text">Необходимо авторизоваться снова</string>
+
+    <!-- Other -->
+    <string name="dialog_ok">Ок</string>
 </resources>

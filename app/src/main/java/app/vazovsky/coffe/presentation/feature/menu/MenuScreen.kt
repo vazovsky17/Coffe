@@ -17,6 +17,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -24,18 +26,23 @@ import app.vazovsky.coffe.R
 import app.vazovsky.coffe.domain.model.Product
 import app.vazovsky.coffe.presentation.view.EmptyContent
 import app.vazovsky.coffe.presentation.view.TopBar
+import app.vazovsky.coffe.presentation.view.UnauthorizedDialog
 
 @Composable
 fun MenuScreen(
     shopId: Int,
     onPayClick: (List<Product>) -> Unit,
     onBackPressed: () -> Unit,
+    navigateToAuth: () -> Unit,
 ) {
     val viewModel: MenuViewModel = hiltViewModel()
     val products = viewModel.productsLiveData.observeAsState().value
+    val (showUnauthorizedDialog, setShowUnauthorizedDialog) = remember { mutableStateOf(false) }
 
     SideEffect {
-        viewModel.getMenu(shopId)
+        viewModel.getMenu(shopId) {
+            setShowUnauthorizedDialog(true)
+        }
     }
 
     Scaffold(
@@ -47,6 +54,13 @@ fun MenuScreen(
         },
     ) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
+            if (showUnauthorizedDialog) {
+                UnauthorizedDialog {
+                    setShowUnauthorizedDialog(false)
+                    navigateToAuth()
+                }
+            }
+
             if (products.isNullOrEmpty()) {
                 EmptyContent()
             } else {

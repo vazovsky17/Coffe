@@ -1,6 +1,5 @@
 package app.vazovsky.coffe.data.remote.adapter
 
-import app.vazovsky.coffe.data.remote.exception.AppApiException
 import app.vazovsky.coffe.data.remote.exception.Either
 import app.vazovsky.coffe.data.remote.exception.Failure
 import okhttp3.Request
@@ -27,30 +26,32 @@ internal class NetworkResponseCall<S : Any>(
                             this@NetworkResponseCall,
                             Response.success(Either.Success(body))
                         )
-                    } else if (response.code() == 401) {
-                        callback.onResponse(
-                            this@NetworkResponseCall,
-                            Response.success(Either.Failure(AppApiException.Unauthorized(response.message())))
-                        )
                     } else {
                         callback.onResponse(
                             this@NetworkResponseCall,
-                            Response.success(Either.Failure(AppApiException.UnknownError()))
+                            Response.success(Either.Failure(Failure.UnknownError()))
                         )
                     }
                 } else {
-                    val errorFailure: Failure.FeatureFailure = AppApiException.UnknownError()
-                    callback.onResponse(
-                        this@NetworkResponseCall,
-                        Response.success(
-                            Either.Failure(errorFailure)
+                    if (response.code() == 401) {
+                        callback.onResponse(
+                            this@NetworkResponseCall,
+                            Response.success(Either.Failure(Failure.Unauthorized(response.message())))
                         )
-                    )
+                    } else {
+                        val errorFailure: Failure = Failure.UnknownError()
+                        callback.onResponse(
+                            this@NetworkResponseCall,
+                            Response.success(
+                                Either.Failure(errorFailure)
+                            )
+                        )
+                    }
                 }
             }
 
             override fun onFailure(call: Call<S>, throwable: Throwable) {
-                val leftFailure = AppApiException.UnknownError(throwable.message)
+                val leftFailure = Failure.UnknownError(throwable.message)
                 callback.onResponse(
                     this@NetworkResponseCall,
                     Response.success(Either.Failure(leftFailure))

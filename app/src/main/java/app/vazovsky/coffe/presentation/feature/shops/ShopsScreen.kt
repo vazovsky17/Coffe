@@ -13,6 +13,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -20,29 +22,40 @@ import app.vazovsky.coffe.R
 import app.vazovsky.coffe.domain.model.Location
 import app.vazovsky.coffe.presentation.view.EmptyContent
 import app.vazovsky.coffe.presentation.view.TopBar
+import app.vazovsky.coffe.presentation.view.UnauthorizedDialog
 
 @Composable
 fun ShopsScreen(
-    onBackPressed: () -> Unit,
+    navigateToAuth: () -> Unit,
     onShopClick: (Location) -> Unit,
     onMapClick: (List<Location>) -> Unit,
 ) {
     val viewModel: ShopsViewModel = hiltViewModel()
     val shops = viewModel.coffeeShops.observeAsState().value
+    val (showUnauthorizedDialog, setShowUnauthorizedDialog) = remember { mutableStateOf(false) }
 
     SideEffect {
-        viewModel.getNearestCoffeeShops()
+        viewModel.getNearestCoffeeShops {
+            setShowUnauthorizedDialog(true)
+        }
     }
 
     Scaffold(
         topBar = {
             TopBar(
                 title = stringResource(R.string.shops_topbar_title),
-                onBackPressed = onBackPressed,
+                onBackPressed = navigateToAuth,
             )
         },
     ) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
+            if (showUnauthorizedDialog) {
+                UnauthorizedDialog {
+                    setShowUnauthorizedDialog(false)
+                    navigateToAuth()
+                }
+            }
+
             if (shops.isNullOrEmpty()) {
                 EmptyContent()
             } else {

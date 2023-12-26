@@ -75,7 +75,7 @@ fun MainNavGraph() {
 
                 composable(MainScreen.Shops.route) {
                     ShopsScreen(
-                        onBackPressed = {
+                        navigateToAuth = {
                             viewModel.clearAuthStatus()
                             navigationActions.navigateToAuth()
                         },
@@ -113,6 +113,10 @@ fun MainNavGraph() {
                                     navigationActions.navigateToOrder(products)
                                 },
                                 onBackPressed = navigationActions::navigateUp,
+                                navigateToAuth = {
+                                    viewModel.clearAuthStatus()
+                                    navigationActions.navigateToAuth()
+                                }
                             )
                         }
                     }
@@ -123,6 +127,7 @@ fun MainNavGraph() {
                         val products = get<List<Product>>(ARG_PRODUCTS)
                         if (products != null) {
                             OrderScreen(
+                                products = products,
                                 onBackPressed = navigationActions::navigateUp,
                             )
                         }
