@@ -1,10 +1,10 @@
 package app.vazovsky.coffe.data.repository
 
-import app.vazovsky.coffe.data.remote.base.Failure
+import app.vazovsky.coffe.data.remote.exception.Failure
 import app.vazovsky.coffe.data.mapper.LocationMapper
 import app.vazovsky.coffe.data.mapper.ProductMapper
-import app.vazovsky.coffe.data.remote.base.Either
-import app.vazovsky.coffe.data.remote.base.map
+import app.vazovsky.coffe.data.remote.exception.Either
+import app.vazovsky.coffe.data.remote.exception.map
 import app.vazovsky.coffe.data.remote.CoffeApiService
 import app.vazovsky.coffe.domain.model.Location
 import app.vazovsky.coffe.domain.model.Product

@@ -1,7 +1,7 @@
 package app.vazovsky.coffe.domain.base
 
-import app.vazovsky.coffe.data.remote.base.Failure
-import app.vazovsky.coffe.data.remote.base.Either
+import app.vazovsky.coffe.data.remote.exception.Failure
+import app.vazovsky.coffe.data.remote.exception.Either
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers

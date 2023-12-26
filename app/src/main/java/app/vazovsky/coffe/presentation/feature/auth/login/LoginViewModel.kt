@@ -5,11 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import app.vazovsky.coffe.domain.model.Token
 import app.vazovsky.coffe.domain.usecases.LoginUseCase
+import app.vazovsky.coffe.domain.usecases.SaveAuthDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
+    private val saveAuthDataUseCase: SaveAuthDataUseCase,
     private val loginUseCase: LoginUseCase,
 ) : ViewModel() {
     val emailLiveData = MutableLiveData("")
@@ -35,10 +37,24 @@ class LoginViewModel @Inject constructor(
                     /** TODO можно прописать ошибки */
                 },
                 ifSuccess = { token ->
-                    _tokenLiveData.value = token
-                    Any()
+                    saveAuthToken(token)
                 }
             )
+        }
+    }
+
+    private fun saveAuthToken(token: Token?) {
+        if (token != null) {
+            saveAuthDataUseCase(
+                params = SaveAuthDataUseCase.Params(token = token)
+            ) { result ->
+                result.fold {
+                    _tokenLiveData.value = token
+                    true
+                }
+            }
+        } else {
+            _errorLiveData.value = "Не удалось авторизоваться"
         }
     }
 }

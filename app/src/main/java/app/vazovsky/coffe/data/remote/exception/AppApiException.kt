@@ -1,4 +1,4 @@
-package app.vazovsky.coffe.data.remote.base
+package app.vazovsky.coffe.data.remote.exception
 
 object AppApiException {
     fun getFailure(errorCode: Long): Failure {

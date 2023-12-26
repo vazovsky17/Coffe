@@ -1,5 +1,8 @@
-package app.vazovsky.coffe.data.remote.base
+package app.vazovsky.coffe.data.remote.adapter
 
+import app.vazovsky.coffe.data.remote.exception.AppApiException
+import app.vazovsky.coffe.data.remote.exception.Either
+import app.vazovsky.coffe.data.remote.exception.Failure
 import okhttp3.Request
 import okhttp3.ResponseBody
 import okio.Timeout

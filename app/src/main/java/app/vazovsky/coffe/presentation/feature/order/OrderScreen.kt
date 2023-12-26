@@ -1,7 +1,9 @@
 package app.vazovsky.coffe.presentation.feature.order
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,7 +27,12 @@ fun OrderScreen(
         },
     ) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
-            Text("ORDER SCREEN")
+            Button(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = {},
+            ) {
+                Text(text = stringResource(R.string.order_confirm))
+            }
         }
     }
 }

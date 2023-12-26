@@ -1,19 +1,20 @@
 package app.vazovsky.coffe.di
 
-import android.content.Context
+import app.vazovsky.coffe.data.preferences.PreferenceStore
 import app.vazovsky.coffe.data.remote.CoffeApiService
 import app.vazovsky.coffe.data.remote.MockCoffeApiService
 import app.vazovsky.coffe.data.remote.SemimockCoffeApiService
-import app.vazovsky.coffe.data.remote.base.CallAdapterFactory
+import app.vazovsky.coffe.data.remote.adapter.CallAdapterFactory
+import app.vazovsky.coffe.data.remote.interceptors.AuthenticationInterceptor
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -23,11 +24,28 @@ private const val BASE_URL = "http://147.78.66.203:3210/ "
 @InstallIn(SingletonComponent::class)
 object ApiServiceModule {
 
+    @Provides
+    @Singleton
+    fun provideAuthenticationInterceptor(
+        preferenceStore: PreferenceStore,
+    ) = AuthenticationInterceptor(preferenceStore)
+
+    @Provides
+    @Singleton
+    fun provideInterceptor(): HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.BODY
+    }
+
     @Singleton
     @Provides
     fun provideClient(
-        @ApplicationContext context: Context,
-    ): OkHttpClient = OkHttpClient.Builder().build()
+        loggingInterceptor: HttpLoggingInterceptor,
+        authInterceptor: AuthenticationInterceptor,
+    ): OkHttpClient = OkHttpClient
+        .Builder()
+        .addInterceptor(authInterceptor)
+        .addInterceptor(loggingInterceptor)
+        .build()
 
 
     @Singleton

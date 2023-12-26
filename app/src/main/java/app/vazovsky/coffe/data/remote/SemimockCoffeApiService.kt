@@ -1,7 +1,7 @@
 package app.vazovsky.coffe.data.remote
 
-import app.vazovsky.coffe.data.remote.base.Failure
-import app.vazovsky.coffe.data.remote.base.Either
+import app.vazovsky.coffe.data.remote.exception.Either
+import app.vazovsky.coffe.data.remote.exception.Failure
 import app.vazovsky.coffe.data.remote.request.LoginRequestBody
 import app.vazovsky.coffe.data.remote.request.RegisterRequestBody
 import app.vazovsky.coffe.data.remote.response.LocationResponse
@@ -22,10 +22,10 @@ class SemimockCoffeApiService(
     }
 
     override suspend fun getMenu(id: String): Either<Failure, List<ProductResponse>> {
-        return mockApiService.getMenu(id)
+        return apiService.getMenu(id)
     }
 
     override suspend fun getLocations(): Either<Failure, List<LocationResponse>> {
-        return mockApiService.getLocations()
+        return apiService.getLocations()
     }
 }

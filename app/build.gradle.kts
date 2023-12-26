@@ -52,24 +52,22 @@ android {
 }
 
 dependencies {
+    implementation(libs.core.ktx)
+    implementation(libs.kotlin.serialization)
+    implementation(libs.lifecycle.runtime.ktx)
+
+    // Compose
     implementation(libs.activity.compose)
     implementation(platform(libs.compose.bom))
     androidTestImplementation(platform(libs.compose.bom))
-
     implementation(libs.compose.runtime)
     implementation(libs.compose.navigation)
-
     implementation(libs.ui)
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
     implementation(libs.material3)
-
-    implementation(libs.core.ktx)
-    implementation(libs.kotlin.serialization)
-
-    implementation(libs.lifecycle.runtime.ktx)
 
     // Hilt
     implementation(libs.hilt)
@@ -79,6 +77,16 @@ dependencies {
     // Retrofit
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)
+
+    // OkHttp
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.interceptor)
+
+    // Yandex
+    //implementation(libs.yandex.maps)
+
+    // Hawk
+    implementation(libs.hawk)
 
     implementation(libs.timber)
     implementation(libs.glide)

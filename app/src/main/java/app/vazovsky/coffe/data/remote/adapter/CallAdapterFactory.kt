@@ -1,5 +1,7 @@
-package app.vazovsky.coffe.data.remote.base
+package app.vazovsky.coffe.data.remote.adapter
 
+import app.vazovsky.coffe.data.remote.exception.Either
+import app.vazovsky.coffe.data.remote.exception.Failure
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 import retrofit2.CallAdapter

@@ -1,4 +1,4 @@
-package app.vazovsky.coffe.data.remote.base
+package app.vazovsky.coffe.data.remote.exception
 
 sealed class Either<out FailureType, out SuccessType> {
 

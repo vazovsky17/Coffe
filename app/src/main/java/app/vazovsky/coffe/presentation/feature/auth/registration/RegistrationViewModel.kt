@@ -5,11 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import app.vazovsky.coffe.domain.model.Token
 import app.vazovsky.coffe.domain.usecases.RegisterUseCase
+import app.vazovsky.coffe.domain.usecases.SaveAuthDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class RegistrationViewModel @Inject constructor(
+    private val saveAuthDataUseCase: SaveAuthDataUseCase,
     private val registerUseCase: RegisterUseCase,
 ) : ViewModel() {
 
@@ -37,10 +39,24 @@ class RegistrationViewModel @Inject constructor(
                     /** TODO можно прописать ошибки */
                 },
                 ifSuccess = { token ->
+                    saveAuthToken(token)
+                }
+            )
+        }
+    }
+
+    private fun saveAuthToken(token: Token?) {
+        if (token != null) {
+            saveAuthDataUseCase(
+                params = SaveAuthDataUseCase.Params(token = token)
+            ) { result ->
+                result.fold {
                     _tokenLiveData.value = token
                     true
                 }
-            )
+            }
+        } else {
+            _errorLiveData.value = "Не удалось зарегистрироваться"
         }
     }
 }

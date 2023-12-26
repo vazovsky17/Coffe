@@ -8,11 +8,27 @@
     <string name="registration_repeat_password">Повторите пароль</string>
     <string name="registration_confirm">Регистрация</string>
     <string name="registration_yet_registered">Уже зарегистрированы?</string>
+
+    <!-- Login -->
     <string name="login_topbar_title">Вход</string>
-    <string name="map_topbar_title">Карта</string>
-    <string name="menu_topbar_title">Меню</string>
-    <string name="order_topbar_title">Ваш заказ</string>
-    <string name="shops_topbar_title">Ближайшие кофейни</string>
     <string name="login_not_registered">Еще не зарегистрированы?</string>
     <string name="login_confirm">Войти</string>
+
+    <!-- Shops -->
+    <string name="shops_topbar_title">Ближайшие кофейни</string>
+    <string name="shops_maps">На карте</string>
+    <string name="shops_distance_km">км</string>
+    <string name="shops_distance_m">км</string>
+    <string name="shops_distance_postfix">от вас</string>
+
+    <!-- Map -->
+    <string name="map_topbar_title">Карта</string>
+
+    <!-- Menu -->
+    <string name="menu_topbar_title">Меню</string>
+    <string name="menu_pay">Перейти к оплате</string>
+
+    <!-- Order -->
+    <string name="order_topbar_title">Ваш заказ</string>
+    <string name="order_confirm">Оплатить</string>
 </resources>

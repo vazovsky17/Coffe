@@ -2,10 +2,12 @@ package app.vazovsky.coffe.presentation.navigation
 
 sealed class Graph(val route: String) {
 
+    data object Splash : Graph(SPLASH)
     data object Auth : Graph(AUTH)
     data object Main : Graph(MAIN)
 
     companion object {
+        const val SPLASH = "splash"
         const val AUTH = "auth"
         const val MAIN = "main"
     }
