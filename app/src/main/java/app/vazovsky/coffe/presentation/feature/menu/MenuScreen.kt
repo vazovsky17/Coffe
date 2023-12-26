@@ -45,7 +45,7 @@ import app.vazovsky.coffe.presentation.ui.theme.CoyoteBrown
 import app.vazovsky.coffe.presentation.ui.theme.PaleTaupe
 import app.vazovsky.coffe.presentation.view.AppButton
 import app.vazovsky.coffe.presentation.view.EmptyContent
-import app.vazovsky.coffe.presentation.view.TopBar
+import app.vazovsky.coffe.presentation.view.AppTopBar
 import app.vazovsky.coffe.presentation.view.UnauthorizedDialog
 import coil.compose.rememberAsyncImagePainter
 
@@ -69,7 +69,7 @@ fun MenuScreen(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            TopBar(
+            AppTopBar(
                 title = stringResource(R.string.menu_topbar_title),
                 onBackPressed = onBackPressed,
             )

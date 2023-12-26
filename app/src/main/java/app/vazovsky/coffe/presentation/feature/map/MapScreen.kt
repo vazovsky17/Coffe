@@ -12,7 +12,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import app.vazovsky.coffe.R
 import app.vazovsky.coffe.domain.model.Location
-import app.vazovsky.coffe.presentation.view.TopBar
+import app.vazovsky.coffe.presentation.view.AppTopBar
 
 @Composable
 fun MapScreen(
@@ -23,7 +23,7 @@ fun MapScreen(
     val viewModel: MapViewModel = hiltViewModel()
     Scaffold(
         topBar = {
-            TopBar(
+            AppTopBar(
                 title = stringResource(R.string.map_topbar_title),
                 onBackPressed = onBackPressed,
             )

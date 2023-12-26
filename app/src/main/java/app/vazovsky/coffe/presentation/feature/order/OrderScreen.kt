@@ -28,7 +28,7 @@ import app.vazovsky.coffe.R
 import app.vazovsky.coffe.domain.model.Product
 import app.vazovsky.coffe.presentation.view.AppButton
 import app.vazovsky.coffe.presentation.view.EmptyContent
-import app.vazovsky.coffe.presentation.view.TopBar
+import app.vazovsky.coffe.presentation.view.AppTopBar
 
 @Composable
 fun OrderScreen(
@@ -44,7 +44,7 @@ fun OrderScreen(
 
     Scaffold(
         topBar = {
-            TopBar(
+            AppTopBar(
                 title = stringResource(R.string.order_topbar_title),
                 onBackPressed = onBackPressed,
             )

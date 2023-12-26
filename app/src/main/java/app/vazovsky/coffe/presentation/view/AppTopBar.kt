@@ -18,7 +18,7 @@ import app.vazovsky.coffe.presentation.ui.theme.Snow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBar(
+fun AppTopBar(
     title: String,
     onBackPressed: (() -> Unit)? = null,
 ) {

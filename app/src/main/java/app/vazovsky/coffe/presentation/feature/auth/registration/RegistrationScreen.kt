@@ -9,22 +9,24 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import app.vazovsky.coffe.R
 import app.vazovsky.coffe.extensions.orDefault
 import app.vazovsky.coffe.presentation.ui.theme.CoyoteBrown
-import app.vazovsky.coffe.presentation.ui.theme.PullmanGreen
 import app.vazovsky.coffe.presentation.view.AppButton
+import app.vazovsky.coffe.presentation.view.AppTextField
+import app.vazovsky.coffe.presentation.view.AppTopBar
 import app.vazovsky.coffe.presentation.view.Space
-import app.vazovsky.coffe.presentation.view.TopBar
 
 @Composable
 fun RegistrationScreen(
@@ -46,7 +48,7 @@ fun RegistrationScreen(
 
     Scaffold(
         topBar = {
-            TopBar(title = stringResource(R.string.registration_topbar_title))
+            AppTopBar(title = stringResource(R.string.registration_topbar_title))
         },
     ) { innerPadding ->
         Column(
@@ -60,13 +62,15 @@ fun RegistrationScreen(
                 style = MaterialTheme.typography.titleSmall,
                 color = CoyoteBrown,
             )
-            Space(8.dp)
-            TextField(
-                modifier = Modifier.fillMaxWidth(),
+            Space(6.dp)
+
+            AppTextField(
                 value = email.orDefault(),
                 onValueChange = { text ->
                     viewModel.emailLiveData.value = text
                 },
+                keyboardType = KeyboardType.Email,
+                imeAction = ImeAction.Next,
             )
             Space(24.dp)
 
@@ -75,13 +79,15 @@ fun RegistrationScreen(
                 style = MaterialTheme.typography.titleSmall,
                 color = CoyoteBrown,
             )
-            Space(8.dp)
-            TextField(
-                modifier = Modifier.fillMaxWidth(),
+            Space(6.dp)
+            AppTextField(
                 value = password.orDefault(),
                 onValueChange = { text ->
                     viewModel.passwordLiveData.value = text
                 },
+                visualTransformation = PasswordVisualTransformation('*'),
+                keyboardType = KeyboardType.Password,
+                imeAction = ImeAction.Next,
             )
             Space(24.dp)
 
@@ -90,12 +96,21 @@ fun RegistrationScreen(
                 style = MaterialTheme.typography.titleSmall,
                 color = CoyoteBrown,
             )
-            Space(8.dp)
-            TextField(
-                modifier = Modifier.fillMaxWidth(),
+            Space(6.dp)
+            AppTextField(
                 value = repeatPassword.orDefault(),
                 onValueChange = { text ->
                     viewModel.repeatPasswordLiveData.value = text
+                },
+                visualTransformation = PasswordVisualTransformation('*'),
+                keyboardType = KeyboardType.Password,
+                imeAction = ImeAction.Done,
+                onDoneClick = {
+                    // TODO сделать проверку на пустое и на повторенный пароль и отобразить какой-нибудь снекбар
+                    viewModel.register(
+                        login = email.orDefault(),
+                        password = password.orDefault(),
+                    )
                 },
             )
             Space(24.dp)
