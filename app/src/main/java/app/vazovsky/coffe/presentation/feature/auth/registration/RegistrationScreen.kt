@@ -8,10 +8,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -27,17 +31,21 @@ import app.vazovsky.coffe.presentation.view.AppButton
 import app.vazovsky.coffe.presentation.view.AppTextField
 import app.vazovsky.coffe.presentation.view.AppTopBar
 import app.vazovsky.coffe.presentation.view.Space
+import kotlinx.coroutines.launch
 
 @Composable
 fun RegistrationScreen(
     navigateToLogin: () -> Unit,
     navigateToMain: () -> Unit,
 ) {
+    val scope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
+
     val viewModel: RegistrationViewModel = hiltViewModel()
     val email = viewModel.emailLiveData.observeAsState().value
     val password = viewModel.passwordLiveData.observeAsState().value
     val repeatPassword = viewModel.repeatPasswordLiveData.observeAsState().value
-
+    val error = viewModel.errorLiveData.observeAsState().value
     val token = viewModel.tokenLiveData.observeAsState().value
 
     LaunchedEffect(token) {
@@ -46,10 +54,20 @@ fun RegistrationScreen(
         }
     }
 
+    LaunchedEffect(error) {
+        if (!error.isNullOrEmpty()) {
+            scope.launch {
+                snackbarHostState.showSnackbar(error)
+            }
+        }
+    }
+
+
     Scaffold(
         topBar = {
             AppTopBar(title = stringResource(R.string.registration_topbar_title))
         },
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -93,10 +111,10 @@ fun RegistrationScreen(
                 keyboardType = KeyboardType.Password,
                 imeAction = ImeAction.Done,
                 onDoneClick = {
-                    // TODO сделать проверку на пустое и на повторенный пароль и отобразить какой-нибудь снекбар
-                    viewModel.register(
+                    viewModel.validateAuthData(
                         login = email.orDefault(),
                         password = password.orDefault(),
+                        repeatPassword = repeatPassword.orDefault(),
                     )
                 },
             )
@@ -106,10 +124,10 @@ fun RegistrationScreen(
                 modifier = Modifier.fillMaxWidth(),
                 text = stringResource(R.string.registration_confirm),
                 onClick = {
-                    // TODO сделать проверку на пустое и на повторенный пароль и отобразить какой-нибудь снекбар
-                    viewModel.register(
+                    viewModel.validateAuthData(
                         login = email.orDefault(),
                         password = password.orDefault(),
+                        repeatPassword = repeatPassword.orDefault(),
                     )
                 },
             )

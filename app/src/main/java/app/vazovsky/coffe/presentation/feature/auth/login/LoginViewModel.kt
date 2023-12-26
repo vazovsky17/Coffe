@@ -1,16 +1,20 @@
 package app.vazovsky.coffe.presentation.feature.auth.login
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import app.vazovsky.coffe.R
 import app.vazovsky.coffe.domain.model.Token
 import app.vazovsky.coffe.domain.usecases.LoginUseCase
 import app.vazovsky.coffe.domain.usecases.SaveAuthDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val saveAuthDataUseCase: SaveAuthDataUseCase,
     private val loginUseCase: LoginUseCase,
 ) : ViewModel() {
@@ -32,8 +36,8 @@ class LoginViewModel @Inject constructor(
             ),
         ) { result ->
             result.fold(
-                ifFailure = { failure ->
-                    errorLiveData.value = failure.message
+                ifFailure = {
+                    errorLiveData.value = context.getString(R.string.login_authorized_error)
                     true
                 },
                 ifSuccess = { token ->
@@ -55,7 +59,15 @@ class LoginViewModel @Inject constructor(
                 }
             }
         } else {
-            errorLiveData.value = "Не удалось авторизоваться"
+            errorLiveData.value = context.getString(R.string.login_authorized_error)
+        }
+    }
+
+    fun validateAuthData(login: String, password: String) {
+        if (login.isNotBlank() or password.isNotBlank()) {
+            login(login, password)
+        } else {
+            errorLiveData.value = context.getString(R.string.login_empty_data)
         }
     }
 }

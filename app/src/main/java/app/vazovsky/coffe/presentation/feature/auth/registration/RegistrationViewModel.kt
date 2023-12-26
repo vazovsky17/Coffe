@@ -1,16 +1,20 @@
 package app.vazovsky.coffe.presentation.feature.auth.registration
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import app.vazovsky.coffe.R
 import app.vazovsky.coffe.domain.model.Token
 import app.vazovsky.coffe.domain.usecases.RegisterUseCase
 import app.vazovsky.coffe.domain.usecases.SaveAuthDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 @HiltViewModel
 class RegistrationViewModel @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val saveAuthDataUseCase: SaveAuthDataUseCase,
     private val registerUseCase: RegisterUseCase,
 ) : ViewModel() {
@@ -34,8 +38,8 @@ class RegistrationViewModel @Inject constructor(
             ),
         ) { result ->
             result.fold(
-                ifFailure = { failure ->
-                    errorLiveData.value = failure.message
+                ifFailure = {
+                    errorLiveData.value = context.getString(R.string.registration_authorized_error)
                     true
                 },
                 ifSuccess = { token ->
@@ -56,7 +60,17 @@ class RegistrationViewModel @Inject constructor(
                 }
             }
         } else {
-            errorLiveData.value = "Не удалось зарегистрироваться"
+            errorLiveData.value = context.getString(R.string.registration_authorized_error)
+        }
+    }
+
+    fun validateAuthData(login: String, password: String, repeatPassword: String) {
+        if (password != repeatPassword) {
+            errorLiveData.value = context.getString(R.string.registration_password_no_match)
+        } else if (login.isNotBlank() or password.isNotBlank() and repeatPassword.isNotBlank()) {
+            register(login, password)
+        } else {
+            errorLiveData.value = context.getString(R.string.registration_empty_data)
         }
     }
 }

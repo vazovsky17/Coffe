@@ -8,10 +8,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -27,16 +31,20 @@ import app.vazovsky.coffe.presentation.view.AppButton
 import app.vazovsky.coffe.presentation.view.AppTextField
 import app.vazovsky.coffe.presentation.view.AppTopBar
 import app.vazovsky.coffe.presentation.view.Space
+import kotlinx.coroutines.launch
 
 @Composable
 fun LoginScreen(
     navigateToRegistration: () -> Unit,
     navigateToMain: () -> Unit,
 ) {
+    val scope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
+
     val viewModel: LoginViewModel = hiltViewModel()
     val email = viewModel.emailLiveData.observeAsState().value
     val password = viewModel.passwordLiveData.observeAsState().value
-
+    val error = viewModel.errorLiveData.observeAsState().value
     val token = viewModel.tokenLiveData.observeAsState().value
 
     LaunchedEffect(token) {
@@ -45,10 +53,19 @@ fun LoginScreen(
         }
     }
 
+    LaunchedEffect(error) {
+        if (!error.isNullOrEmpty()) {
+            scope.launch {
+                snackbarHostState.showSnackbar(error)
+            }
+        }
+    }
+
     Scaffold(
         topBar = {
             AppTopBar(title = stringResource(R.string.login_topbar_title))
         },
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -79,8 +96,7 @@ fun LoginScreen(
                 keyboardType = KeyboardType.Password,
                 imeAction = ImeAction.Done,
                 onDoneClick = {
-                    // TODO сделать проверку на пустое и на повторенный пароль и отобразить какой-нибудь снекбар
-                    viewModel.login(
+                    viewModel.validateAuthData(
                         login = email.orDefault(),
                         password = password.orDefault(),
                     )
@@ -92,8 +108,7 @@ fun LoginScreen(
                 modifier = Modifier.fillMaxWidth(),
                 text = stringResource(R.string.login_confirm),
                 onClick = {
-                    // TODO сделать проверку на пустое и отобразить какой-нибудь снекбар
-                    viewModel.login(
+                    viewModel.validateAuthData(
                         login = email.orDefault(),
                         password = password.orDefault(),
                     )

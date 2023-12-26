@@ -2,17 +2,25 @@ package app.vazovsky.coffe.di
 
 import android.app.Activity
 import android.app.Application
+import android.content.Context
 import android.content.SharedPreferences
 import app.vazovsky.coffe.data.preferences.PreferenceStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object ApplicationModule {
+
+    @Provides
+    @Singleton
+    fun provideApplicationContext(@ApplicationContext app: Application): Context {
+        return app.applicationContext
+    }
 
     @Provides
     @Singleton

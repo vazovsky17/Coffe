@@ -10,6 +10,9 @@
     <string name="registration_repeat_password">Повторите пароль</string>
     <string name="registration_confirm">Регистрация</string>
     <string name="registration_yet_registered">Уже зарегистрированы?</string>
+    <string name="registration_empty_data">Заполните данные</string>
+    <string name="registration_password_no_match">Пароли не совпадают</string>
+    <string name="registration_authorized_error">Не удалось авторизоваться</string>
 
     <!-- Login -->
     <string name="login_topbar_title">Вход</string>
@@ -19,6 +22,8 @@
     <string name="login_password_example">******</string>
     <string name="login_not_registered">Еще не зарегистрированы?</string>
     <string name="login_confirm">Войти</string>
+    <string name="login_empty_data">Заполните данные</string>
+    <string name="login_authorized_error">Не удалось авторизоваться</string>
 
     <!-- Shops -->
     <string name="shops_topbar_title">Ближайшие кофейни</string>

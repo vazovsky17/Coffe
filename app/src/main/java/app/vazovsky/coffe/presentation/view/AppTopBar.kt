@@ -10,11 +10,13 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.unit.dp
 import app.vazovsky.coffe.presentation.ui.theme.CoyoteBrown
+import app.vazovsky.coffe.presentation.ui.theme.SilverSand
 import app.vazovsky.coffe.presentation.ui.theme.Snow
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -26,7 +28,11 @@ fun AppTopBar(
     CenterAlignedTopAppBar(
         modifier = Modifier
             .fillMaxWidth()
-            .statusBarsPadding(),
+            .statusBarsPadding()
+            .shadow(
+                elevation = 10.dp, //or whatever value
+                spotColor = SilverSand,
+            ),
         title = {
             Text(
                 style = MaterialTheme.typography.labelLarge,
