@@ -1,7 +1,7 @@
 package app.vazovsky.coffe.domain.usecases
 
-import app.vazovsky.coffe.data.remote.exception.Failure
 import app.vazovsky.coffe.data.remote.exception.Either
+import app.vazovsky.coffe.data.remote.exception.Failure
 import app.vazovsky.coffe.data.repository.CoffeRepository
 import app.vazovsky.coffe.domain.base.UseCase
 import app.vazovsky.coffe.domain.model.Product
@@ -17,6 +17,6 @@ class GetMenuUseCase @Inject constructor(
     }
 
     data class Params(
-        val id: String,
+        val id: Int,
     )
 }

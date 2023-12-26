@@ -27,6 +27,7 @@
     <!-- Menu -->
     <string name="menu_topbar_title">Меню</string>
     <string name="menu_pay">Перейти к оплате</string>
+    <string name="menu_currency">руб</string>
 
     <!-- Order -->
     <string name="order_topbar_title">Ваш заказ</string>

@@ -21,7 +21,7 @@ interface CoffeApiService {
     suspend fun register(@Body body: RegisterRequestBody): Either<Failure, TokenResponse>
 
     @GET("location/{id}/menu")
-    suspend fun getMenu(@Path("id") id: String): Either<Failure, List<ProductResponse>>
+    suspend fun getMenu(@Path("id") id: Int): Either<Failure, List<ProductResponse>>
 
     @GET("locations")
     suspend fun getLocations(): Either<Failure, List<LocationResponse>>

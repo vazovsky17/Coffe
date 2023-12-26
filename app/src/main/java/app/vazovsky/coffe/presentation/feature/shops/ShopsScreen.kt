@@ -18,6 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import app.vazovsky.coffe.R
 import app.vazovsky.coffe.domain.model.Location
+import app.vazovsky.coffe.presentation.view.EmptyContent
 import app.vazovsky.coffe.presentation.view.TopBar
 
 @Composable
@@ -42,14 +43,16 @@ fun ShopsScreen(
         },
     ) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
-            LazyColumn() {
-                items(items = shops.orEmpty(), key = { item -> item.id }) { coffeeShop ->
-                    CoffeeShopCard(coffeeShop) {
-                        onShopClick(coffeeShop)
+            if (shops.isNullOrEmpty()) {
+                EmptyContent()
+            } else {
+                LazyColumn() {
+                    items(items = shops, key = { item -> item.id }) { coffeeShop ->
+                        CoffeeShopCard(coffeeShop) {
+                            onShopClick(coffeeShop)
+                        }
                     }
                 }
-            }
-            if (!shops.isNullOrEmpty()) {
                 Button(
                     modifier = Modifier.fillMaxWidth(),
                     onClick = { onMapClick(shops) },

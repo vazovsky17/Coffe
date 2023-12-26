@@ -21,7 +21,7 @@ class SemimockCoffeApiService(
         return apiService.register(body)
     }
 
-    override suspend fun getMenu(id: String): Either<Failure, List<ProductResponse>> {
+    override suspend fun getMenu(id: Int): Either<Failure, List<ProductResponse>> {
         return apiService.getMenu(id)
     }
 
