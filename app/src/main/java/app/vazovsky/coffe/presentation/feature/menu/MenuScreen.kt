@@ -15,7 +15,6 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
@@ -40,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import app.vazovsky.coffe.R
 import app.vazovsky.coffe.domain.model.Product
+import app.vazovsky.coffe.presentation.view.AppButton
 import app.vazovsky.coffe.presentation.view.EmptyContent
 import app.vazovsky.coffe.presentation.view.TopBar
 import app.vazovsky.coffe.presentation.view.UnauthorizedDialog
@@ -111,15 +111,14 @@ fun MenuScreen(
                     }
                 }
 
-                Button(
+                AppButton(
                     modifier = Modifier
                         .fillMaxWidth()
                         .align(Alignment.BottomCenter)
                         .padding(bottom = 20.dp),
+                    text = stringResource(R.string.menu_pay),
                     onClick = { onPayClick(products) },
-                ) {
-                    Text(text = stringResource(R.string.menu_pay))
-                }
+                )
             }
         }
     }

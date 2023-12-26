@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
@@ -26,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import app.vazovsky.coffe.R
 import app.vazovsky.coffe.domain.model.Location
+import app.vazovsky.coffe.presentation.view.AppButton
 import app.vazovsky.coffe.presentation.view.EmptyContent
 import app.vazovsky.coffe.presentation.view.TopBar
 import app.vazovsky.coffe.presentation.view.UnauthorizedDialog
@@ -87,15 +87,13 @@ fun ShopsScreen(
                     }
                 }
 
-                Button(
+                AppButton(
                     modifier = Modifier
-                        .fillMaxWidth()
                         .align(Alignment.BottomCenter)
                         .padding(bottom = 20.dp),
+                    text = stringResource(R.string.shops_maps),
                     onClick = { onMapClick(shops) },
-                ) {
-                    Text(text = stringResource(R.string.shops_maps))
-                }
+                )
             }
         }
     }

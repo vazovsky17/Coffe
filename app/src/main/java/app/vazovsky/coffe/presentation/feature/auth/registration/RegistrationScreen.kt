@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import app.vazovsky.coffe.R
 import app.vazovsky.coffe.extensions.orDefault
+import app.vazovsky.coffe.presentation.view.AppButton
 import app.vazovsky.coffe.presentation.view.Space
 import app.vazovsky.coffe.presentation.view.TopBar
 
@@ -86,8 +87,9 @@ fun RegistrationScreen(
             )
             Space(24.dp)
 
-            Button(
+            AppButton(
                 modifier = Modifier.fillMaxWidth(),
+                text = stringResource(R.string.registration_confirm),
                 onClick = {
                     // TODO сделать проверку на пустое и на повторенный пароль и отобразить какой-нибудь снекбар
                     viewModel.register(
@@ -95,9 +97,7 @@ fun RegistrationScreen(
                         password = password.orDefault(),
                     )
                 },
-            ) {
-                Text(text = stringResource(R.string.registration_confirm))
-            }
+            )
             Space(8.dp)
 
             Text(

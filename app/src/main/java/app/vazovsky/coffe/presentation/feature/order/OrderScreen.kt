@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -27,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import app.vazovsky.coffe.R
 import app.vazovsky.coffe.domain.model.Product
+import app.vazovsky.coffe.presentation.view.AppButton
 import app.vazovsky.coffe.presentation.view.EmptyContent
 import app.vazovsky.coffe.presentation.view.TopBar
 
@@ -71,12 +71,14 @@ fun OrderScreen(
                     }
                 }
 
-                Button(
-                    modifier = Modifier.fillMaxWidth(),
+                AppButton(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.BottomCenter)
+                        .padding(bottom = 20.dp),
+                    text = stringResource(R.string.order_confirm),
                     onClick = {},
-                ) {
-                    Text(text = stringResource(R.string.order_confirm))
-                }
+                )
             }
         }
     }
