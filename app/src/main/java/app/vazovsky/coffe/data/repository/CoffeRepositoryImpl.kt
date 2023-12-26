@@ -6,7 +6,7 @@ import app.vazovsky.coffe.data.remote.CoffeApiService
 import app.vazovsky.coffe.data.remote.exception.Either
 import app.vazovsky.coffe.data.remote.exception.Failure
 import app.vazovsky.coffe.data.remote.exception.map
-import app.vazovsky.coffe.domain.model.Location
+import app.vazovsky.coffe.domain.model.CoffeeShop
 import app.vazovsky.coffe.domain.model.Product
 import javax.inject.Inject
 
@@ -24,7 +24,7 @@ class CoffeRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getLocations(): Either<Failure, List<Location>> {
+    override suspend fun getLocations(): Either<Failure, List<CoffeeShop>> {
         return apiService.getLocations().map { locations ->
             locations.map { location ->
                 locationMapper.fromApiToModel(location)

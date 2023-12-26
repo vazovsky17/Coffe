@@ -32,6 +32,7 @@
     <string name="shops_distance_km">км</string>
     <string name="shops_distance_m">км</string>
     <string name="shops_distance_postfix">от вас</string>
+    <string name="shops_unknown_distance">Дистанция неизвестна</string>
 
     <!-- Map -->
     <string name="map_topbar_title">Карта</string>
@@ -56,4 +57,5 @@
     <!-- Other -->
     <string name="dialog_ok">Ок</string>
     <string name="empty_text">Пусто</string>
+
 </resources>

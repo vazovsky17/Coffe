@@ -5,7 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import app.vazovsky.coffe.data.remote.exception.Failure
 import app.vazovsky.coffe.domain.base.UseCase
-import app.vazovsky.coffe.domain.model.Location
+import app.vazovsky.coffe.domain.model.CoffeeShop
+import app.vazovsky.coffe.domain.model.Point
 import app.vazovsky.coffe.domain.usecases.GetShopsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -16,8 +17,10 @@ class ShopsViewModel @Inject constructor(
 ) : ViewModel() {
 
     /** Ближайшие кофейни */
-    private val _coffeeShops = MutableLiveData<List<Location>>()
-    val coffeeShops: LiveData<List<Location>> = _coffeeShops
+    private val _coffeeShops = MutableLiveData<List<CoffeeShop>>()
+    val coffeeShops: LiveData<List<CoffeeShop>> = _coffeeShops
+
+    val currentLocation = MutableLiveData<Point>()
 
     val errorLiveData = MutableLiveData<String>()
 

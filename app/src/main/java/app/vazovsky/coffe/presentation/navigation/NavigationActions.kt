@@ -2,7 +2,7 @@ package app.vazovsky.coffe.presentation.navigation
 
 import androidx.compose.runtime.Stable
 import androidx.navigation.NavController
-import app.vazovsky.coffe.domain.model.Location
+import app.vazovsky.coffe.domain.model.CoffeeShop
 import app.vazovsky.coffe.domain.model.Product
 import app.vazovsky.coffe.presentation.navigation.Args.ARG_PRODUCTS
 import app.vazovsky.coffe.presentation.navigation.Args.ARG_SHOPS
@@ -34,7 +34,7 @@ class NavigationActions(private val navController: NavController) {
 
     fun navigateToShops() = navController.navigate(MainScreen.Shops.route)
 
-    fun navigateToMap(shops: List<Location>) {
+    fun navigateToMap(shops: List<CoffeeShop>) {
         navController.currentBackStackEntry?.savedStateHandle?.apply {
             this[ARG_SHOPS] = shops
         }

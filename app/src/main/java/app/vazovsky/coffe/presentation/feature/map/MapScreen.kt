@@ -12,7 +12,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.viewinterop.AndroidView
 import app.vazovsky.coffe.R
-import app.vazovsky.coffe.domain.model.Location
+import app.vazovsky.coffe.domain.model.CoffeeShop
 import app.vazovsky.coffe.presentation.view.AppTopBar
 import app.vazovsky.coffe.presentation.view.rememberMapViewWithLifecycle
 import com.yandex.mapkit.Animation
@@ -24,7 +24,7 @@ import com.yandex.runtime.ui_view.ViewProvider
 
 @Composable
 fun MapScreen(
-    shops: List<Location>,
+    shops: List<CoffeeShop>,
     onBackPressed: () -> Unit,
 ) {
     val context = LocalContext.current

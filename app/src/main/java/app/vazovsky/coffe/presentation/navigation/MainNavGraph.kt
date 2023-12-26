@@ -14,7 +14,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
-import app.vazovsky.coffe.domain.model.Location
+import app.vazovsky.coffe.domain.model.CoffeeShop
 import app.vazovsky.coffe.domain.model.Product
 import app.vazovsky.coffe.presentation.feature.auth.login.LoginScreen
 import app.vazovsky.coffe.presentation.feature.auth.registration.RegistrationScreen
@@ -93,7 +93,7 @@ fun MainNavGraph() {
 
                 composable(MainScreen.Map.route) {
                     navController.previousBackStackEntry?.savedStateHandle?.apply {
-                        val shops = get<List<Location>>(ARG_SHOPS)
+                        val shops = get<List<CoffeeShop>>(ARG_SHOPS)
                         if (shops != null) {
                             MapScreen(
                                 shops = shops,

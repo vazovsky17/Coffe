@@ -35,4 +35,3 @@ fun requestLocationUpdates(context: Context, onLocation: (Pair<Double, Double>) 
         Looper.getMainLooper()
     )
 }
-
