@@ -15,13 +15,24 @@ import app.vazovsky.coffe.presentation.ui.theme.Champagne
 import app.vazovsky.coffe.presentation.ui.theme.PullmanGreen
 
 @Composable
-fun AppButton(modifier: Modifier = Modifier, text: String, onClick: () -> Unit) {
+fun AppButton(
+    modifier: Modifier = Modifier,
+    text: String,
+    enabled: Boolean = true,
+    onClick: () -> Unit,
+) {
     Button(
         modifier = modifier
             .fillMaxWidth()
             .height(48.dp),
         shape = RoundedCornerShape(24.dp),
-        colors = ButtonDefaults.buttonColors(containerColor = PullmanGreen, contentColor = Champagne),
+        enabled = enabled,
+        colors = ButtonDefaults.buttonColors(
+            containerColor = PullmanGreen,
+            contentColor = Champagne,
+            disabledContainerColor = Champagne,
+            disabledContentColor = PullmanGreen,
+        ),
         onClick = onClick,
     ) {
         Text(

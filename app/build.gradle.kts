@@ -83,7 +83,7 @@ dependencies {
     implementation(libs.okhttp.interceptor)
 
     // Yandex
-    //implementation(libs.yandex.maps)
+    implementation(libs.yandex.maps)
 
     // Hawk
     implementation(libs.hawk)

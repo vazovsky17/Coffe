@@ -23,7 +23,7 @@ okhttp3 = "4.11.0"
 
 timber = "5.0.1"
 coil = "2.5.0"
-yandex-maps = "4.0.0-full"
+yandex-maps = "4.4.0-lite"
 hawk = "2.0.1"
 
 junit = "4.13.2"
