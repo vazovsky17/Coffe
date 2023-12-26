@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -66,8 +67,14 @@ fun ShopsScreen(
                 }
             }
 
-            if (shops.isNullOrEmpty()) {
-                EmptyContent(text = stringResource(R.string.shops_empty_content))
+            // TODO проверить еще на ошибку
+            if (shops == null) {
+                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+            } else if (shops.isEmpty()) {
+                EmptyContent(
+                    modifier = Modifier.align(Alignment.Center),
+                    text = stringResource(R.string.shops_empty_content),
+                )
             } else {
                 LazyColumn(
                     contentPadding = PaddingValues(bottom = 64.dp),

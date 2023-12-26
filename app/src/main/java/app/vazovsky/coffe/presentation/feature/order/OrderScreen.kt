@@ -9,9 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
@@ -21,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
@@ -58,7 +56,10 @@ fun OrderScreen(
                 .padding(top = innerPadding.calculateTopPadding(), start = 18.dp, end = 18.dp),
         ) {
             if (selectedProducts.isNullOrEmpty()) {
-                EmptyContent(stringResource(R.string.order_empty_content))
+                EmptyContent(
+                    modifier = Modifier.align(Alignment.Center),
+                    text = stringResource(R.string.order_empty_content),
+                )
             } else {
                 LazyColumn() {
                     items(selectedProducts) { product ->
@@ -69,6 +70,7 @@ fun OrderScreen(
                         )
                     }
                 }
+
                 Button(
                     modifier = Modifier.fillMaxWidth(),
                     onClick = {},

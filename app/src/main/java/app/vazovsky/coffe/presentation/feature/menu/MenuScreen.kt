@@ -13,9 +13,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
@@ -81,8 +83,14 @@ fun MenuScreen(
                 }
             }
 
-            if (products.isNullOrEmpty()) {
-                EmptyContent(stringResource(R.string.menu_empty_content))
+            // TODO проверить еще на ошибку
+            if (products == null) {
+                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+            } else if (products.isEmpty()) {
+                EmptyContent(
+                    modifier = Modifier.align(Alignment.Center),
+                    text = stringResource(R.string.menu_empty_content),
+                )
             } else {
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(2),
@@ -90,18 +98,19 @@ fun MenuScreen(
                     horizontalArrangement = Arrangement.spacedBy(13.dp),
                     contentPadding = PaddingValues(bottom = 64.dp),
                 ) {
-                    items(count = products.size) { index ->
+                    items(items = products, key = { item -> item.id }) { product ->
                         ProductCard(
-                            product = products[index],
+                            product = product,
                             selectProduct = {
-                                viewModel.selectProduct(products[index])
+                                viewModel.selectProduct(product)
                             },
                             unselectProduct = {
-                                viewModel.unselectProduct(products[index])
-                            }
+                                viewModel.unselectProduct(product)
+                            },
                         )
                     }
                 }
+
                 Button(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -147,8 +156,7 @@ fun ProductCard(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 11.dp, end = 11.dp),
-            verticalAlignment = Alignment.CenterVertically
+                .padding(start = 11.dp, end = 11.dp), verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
                 text = buildString {
