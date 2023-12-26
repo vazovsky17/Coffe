@@ -22,7 +22,7 @@ retrofit = "2.9.0"
 okhttp3 = "4.11.0"
 
 timber = "5.0.1"
-glide = "1.0.0-alpha.1"
+coil = "2.5.0"
 yandex-maps = "4.0.0-full"
 hawk = "2.0.1"
 
@@ -62,9 +62,9 @@ okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhtt
 okhttp-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp3" }
 
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
-glide = { group = "com.github.bumptech.glide", name = "compose", version.ref = "glide" }
 yandex-maps = { group = "com.yandex.android", name = "maps.mobile", version.ref = "yandex-maps" }
 hawk = { group = "com.orhanobut", name = "hawk", version.ref = "hawk" }
+coil = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }

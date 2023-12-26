@@ -1,7 +1,10 @@
 package app.vazovsky.coffe.presentation.feature.shops
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -15,8 +18,10 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import app.vazovsky.coffe.R
 import app.vazovsky.coffe.domain.model.Location
@@ -41,6 +46,7 @@ fun ShopsScreen(
     }
 
     Scaffold(
+        modifier = Modifier.fillMaxSize(),
         topBar = {
             TopBar(
                 title = stringResource(R.string.shops_topbar_title),
@@ -48,7 +54,11 @@ fun ShopsScreen(
             )
         },
     ) { innerPadding ->
-        Column(modifier = Modifier.padding(innerPadding)) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = innerPadding.calculateTopPadding(), start = 18.dp, end = 18.dp),
+        ) {
             if (showUnauthorizedDialog) {
                 UnauthorizedDialog {
                     setShowUnauthorizedDialog(false)
@@ -57,17 +67,24 @@ fun ShopsScreen(
             }
 
             if (shops.isNullOrEmpty()) {
-                EmptyContent()
+                EmptyContent(text = stringResource(R.string.shops_empty_content))
             } else {
-                LazyColumn() {
+                LazyColumn(
+                    contentPadding = PaddingValues(bottom = 64.dp),
+                    verticalArrangement = Arrangement.spacedBy(6.dp),
+                ) {
                     items(items = shops, key = { item -> item.id }) { coffeeShop ->
                         CoffeeShopCard(coffeeShop) {
                             onShopClick(coffeeShop)
                         }
                     }
                 }
+
                 Button(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.BottomCenter)
+                        .padding(bottom = 20.dp),
                     onClick = { onMapClick(shops) },
                 ) {
                     Text(text = stringResource(R.string.shops_maps))
@@ -87,8 +104,16 @@ fun CoffeeShopCard(
             .fillMaxWidth()
             .clickable { onClick() },
     ) {
-        Text(text = coffeeShop.name)
         Text(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 14.dp, start = 10.dp, end = 10.dp),
+            text = coffeeShop.name
+        )
+        Text(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 6.dp, start = 10.dp, end = 10.dp, bottom = 15.dp),
             text = buildString {
                 // TODO пока так
                 append(1)

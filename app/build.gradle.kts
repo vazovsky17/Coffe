@@ -89,5 +89,5 @@ dependencies {
     implementation(libs.hawk)
 
     implementation(libs.timber)
-    implementation(libs.glide)
+    implementation(libs.coil)
 }

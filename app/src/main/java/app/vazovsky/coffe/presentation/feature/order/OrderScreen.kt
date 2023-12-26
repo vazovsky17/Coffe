@@ -1,7 +1,10 @@
 package app.vazovsky.coffe.presentation.feature.order
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -19,10 +22,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import app.vazovsky.coffe.R
 import app.vazovsky.coffe.domain.model.Product
+import app.vazovsky.coffe.presentation.view.EmptyContent
 import app.vazovsky.coffe.presentation.view.TopBar
 
 @Composable
@@ -45,9 +52,13 @@ fun OrderScreen(
             )
         },
     ) { innerPadding ->
-        Column(modifier = Modifier.padding(innerPadding)) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = innerPadding.calculateTopPadding(), start = 18.dp, end = 18.dp),
+        ) {
             if (selectedProducts.isNullOrEmpty()) {
-                OrderEmptyContent()
+                EmptyContent(stringResource(R.string.order_empty_content))
             } else {
                 LazyColumn() {
                     items(selectedProducts) { product ->
@@ -87,23 +98,21 @@ fun ProductCard(
                     },
                 )
             }
-            IconButton(onClick = selectProduct) {
-                Icon(
-                    imageVector = Icons.Filled.ArrowBack, contentDescription = null
-                )
-            }
-            Text(text = product.count.toString())
             IconButton(onClick = unselectProduct) {
                 Icon(
-                    imageVector = Icons.Filled.Add, contentDescription = null
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_minus), contentDescription = null
+                )
+            }
+            Text(
+                modifier = Modifier.fillMaxHeight(),
+                text = product.count.toString(),
+            )
+            IconButton(onClick = selectProduct) {
+                Icon(
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_plus), contentDescription = null
                 )
             }
         }
 
     }
-}
-
-@Composable
-fun OrderEmptyContent() {
-    Text("Корзина пуста")
 }

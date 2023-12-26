@@ -16,6 +16,7 @@
 
     <!-- Shops -->
     <string name="shops_topbar_title">Ближайшие кофейни</string>
+    <string name="shops_empty_content">К сожалению, поблизости нет кофеен</string>
     <string name="shops_maps">На карте</string>
     <string name="shops_distance_km">км</string>
     <string name="shops_distance_m">км</string>
@@ -26,11 +27,13 @@
 
     <!-- Menu -->
     <string name="menu_topbar_title">Меню</string>
+    <string name="menu_empty_content">К сожалению, в данный момент нет кофе :с</string>
     <string name="menu_pay">Перейти к оплате</string>
     <string name="menu_currency">руб</string>
 
     <!-- Order -->
     <string name="order_topbar_title">Ваш заказ</string>
+    <string name="order_empty_content">Корзина пуста</string>
     <string name="order_confirm">Оплатить</string>
 
     <!-- Unauthorized Dialog -->
@@ -39,4 +42,5 @@
 
     <!-- Other -->
     <string name="dialog_ok">Ок</string>
+    <string name="empty_text">Пусто</string>
 </resources>

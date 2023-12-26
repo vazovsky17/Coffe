@@ -84,7 +84,7 @@ fun MainNavGraph() {
                         },
                         onMapClick = { shops ->
                             navigationActions.navigateToMap(shops)
-                        }
+                        },
                     )
                 }
 

@@ -39,26 +39,22 @@ class MenuViewModel @Inject constructor(
     fun selectProduct(product: Product) {
         val products = _productsLiveData.value.orEmpty().map { item ->
             if (item.id == product.id) {
-                item.copy(
-                    count = item.count.plus(1)
-                )
+                product.copy(count = product.count.plus(1))
             } else {
                 item
             }
         }
-        _productsLiveData.value = products
+        _productsLiveData.postValue(products)
     }
 
     fun unselectProduct(product: Product) {
         val products = _productsLiveData.value.orEmpty().map { item ->
-            if (item.id == product.id && item.count > 0) {
-                item.copy(
-                    count = item.count.minus(1)
-                )
+            if (item.id == product.id && product.count > 0) {
+                product.copy(count = product.count.minus(1))
             } else {
                 item
             }
         }
-        _productsLiveData.value = products
+        _productsLiveData.postValue(products)
     }
 }
