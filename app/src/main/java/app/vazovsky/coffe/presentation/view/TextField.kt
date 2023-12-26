@@ -1,7 +1,7 @@
 package app.vazovsky.coffe.presentation.view
 
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActionScope
 import androidx.compose.foundation.text.KeyboardActions
@@ -9,12 +9,15 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import app.vazovsky.coffe.extensions.orDefault
+import app.vazovsky.coffe.presentation.ui.theme.Champagne
 import app.vazovsky.coffe.presentation.ui.theme.CoyoteBrown
 import app.vazovsky.coffe.presentation.ui.theme.PaleTaupe
 
@@ -22,6 +25,7 @@ import app.vazovsky.coffe.presentation.ui.theme.PaleTaupe
 fun AppTextField(
     modifier: Modifier = Modifier,
     value: String,
+    placeholder: String? = null,
     onValueChange: (String) -> Unit,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardType: KeyboardType = KeyboardType.Text,
@@ -31,9 +35,16 @@ fun AppTextField(
     OutlinedTextField(
         modifier = modifier
             .fillMaxWidth()
-            .height(47.dp),
+            .requiredHeight(48.dp),
         value = value,
         onValueChange = onValueChange,
+        placeholder = {
+            Text(
+                text = placeholder.orDefault(),
+                style = MaterialTheme.typography.bodyLarge,
+                color = Champagne,
+            )
+        },
         shape = RoundedCornerShape(24.dp),
         colors = OutlinedTextFieldDefaults.colors(
             focusedBorderColor = CoyoteBrown,
@@ -41,6 +52,8 @@ fun AppTextField(
             focusedTextColor = PaleTaupe,
             unfocusedTextColor = PaleTaupe,
         ),
+        singleLine = true,
+        //overflow = TextOverflow.Visible,
         maxLines = 1,
         visualTransformation = visualTransformation,
         keyboardOptions = KeyboardOptions(

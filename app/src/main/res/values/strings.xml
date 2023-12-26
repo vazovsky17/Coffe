@@ -4,13 +4,19 @@
     <!-- Registration -->
     <string name="registration_topbar_title">Регистрация</string>
     <string name="registration_email">e-mail</string>
+    <string name="registration_email_example">example@example.ru</string>
     <string name="registration_password">Пароль</string>
+    <string name="registration_password_example">******</string>
     <string name="registration_repeat_password">Повторите пароль</string>
     <string name="registration_confirm">Регистрация</string>
     <string name="registration_yet_registered">Уже зарегистрированы?</string>
 
     <!-- Login -->
     <string name="login_topbar_title">Вход</string>
+    <string name="login_email">e-mail</string>
+    <string name="login_email_example">example@example.ru</string>
+    <string name="login_password">******</string>
+    <string name="login_password_example">123456</string>
     <string name="login_not_registered">Еще не зарегистрированы?</string>
     <string name="login_confirm">Войти</string>
 

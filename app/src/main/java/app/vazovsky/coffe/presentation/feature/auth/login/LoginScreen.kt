@@ -57,7 +57,7 @@ fun LoginScreen(
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = stringResource(R.string.registration_email),
+                text = stringResource(R.string.login_email),
                 style = MaterialTheme.typography.titleSmall,
                 color = CoyoteBrown,
             )
@@ -68,13 +68,14 @@ fun LoginScreen(
                 onValueChange = { text ->
                     viewModel.emailLiveData.value = text
                 },
+                placeholder = stringResource(R.string.login_email_example),
                 keyboardType = KeyboardType.Email,
                 imeAction = ImeAction.Next,
             )
             Space(24.dp)
 
             Text(
-                text = stringResource(R.string.registration_password),
+                text = stringResource(R.string.login_password),
                 style = MaterialTheme.typography.titleSmall,
                 color = CoyoteBrown,
             )
@@ -85,6 +86,7 @@ fun LoginScreen(
                 onValueChange = { text ->
                     viewModel.passwordLiveData.value = text
                 },
+                placeholder = stringResource(R.string.login_password_example),
                 visualTransformation = PasswordVisualTransformation('*'),
                 keyboardType = KeyboardType.Password,
                 imeAction = ImeAction.Done,

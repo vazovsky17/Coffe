@@ -69,6 +69,7 @@ fun RegistrationScreen(
                 onValueChange = { text ->
                     viewModel.emailLiveData.value = text
                 },
+                placeholder = stringResource(R.string.registration_email_example),
                 keyboardType = KeyboardType.Email,
                 imeAction = ImeAction.Next,
             )
@@ -85,6 +86,7 @@ fun RegistrationScreen(
                 onValueChange = { text ->
                     viewModel.passwordLiveData.value = text
                 },
+                placeholder = stringResource(R.string.registration_password_example),
                 visualTransformation = PasswordVisualTransformation('*'),
                 keyboardType = KeyboardType.Password,
                 imeAction = ImeAction.Next,
@@ -102,6 +104,7 @@ fun RegistrationScreen(
                 onValueChange = { text ->
                     viewModel.repeatPasswordLiveData.value = text
                 },
+                placeholder = stringResource(R.string.registration_password_example),
                 visualTransformation = PasswordVisualTransformation('*'),
                 keyboardType = KeyboardType.Password,
                 imeAction = ImeAction.Done,
