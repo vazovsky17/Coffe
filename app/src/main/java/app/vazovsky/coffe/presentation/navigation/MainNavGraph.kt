@@ -75,7 +75,10 @@ fun MainNavGraph() {
 
                 composable(MainScreen.Shops.route) {
                     ShopsScreen(
-                        onBackPressed = navigationActions::navigateToAuth,
+                        onBackPressed = {
+                            viewModel.clearAuthStatus()
+                            navigationActions.navigateToAuth()
+                        },
                         onShopClick = { location ->
                             navigationActions.navigateToMenu(location.id)
                         },
