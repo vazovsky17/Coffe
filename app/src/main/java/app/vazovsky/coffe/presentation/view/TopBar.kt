@@ -9,8 +9,11 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import app.vazovsky.coffe.presentation.ui.theme.CoyoteBrown
+import app.vazovsky.coffe.presentation.ui.theme.Snow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -22,6 +25,11 @@ fun TopBar(
         modifier = Modifier
             .fillMaxWidth()
             .statusBarsPadding(),
+        title = {
+            Text(
+                text = title,
+            )
+        },
         navigationIcon = {
             onBackPressed?.let {
                 IconButton(onClick = onBackPressed) {
@@ -32,10 +40,10 @@ fun TopBar(
                 }
             }
         },
-        title = {
-            Text(
-                text = title,
-            )
-        },
+        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+            containerColor = Snow,
+            titleContentColor = CoyoteBrown,
+            navigationIconContentColor = CoyoteBrown,
+        )
     )
 }

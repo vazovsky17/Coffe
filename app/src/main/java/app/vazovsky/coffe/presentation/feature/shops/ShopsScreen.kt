@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -25,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import app.vazovsky.coffe.R
 import app.vazovsky.coffe.domain.model.Location
+import app.vazovsky.coffe.presentation.ui.theme.Champagne
 import app.vazovsky.coffe.presentation.view.AppButton
 import app.vazovsky.coffe.presentation.view.EmptyContent
 import app.vazovsky.coffe.presentation.view.TopBar
@@ -77,7 +79,7 @@ fun ShopsScreen(
                 )
             } else {
                 LazyColumn(
-                    contentPadding = PaddingValues(bottom = 64.dp),
+                    contentPadding = PaddingValues(bottom = 64.dp, top = 16.dp),
                     verticalArrangement = Arrangement.spacedBy(6.dp),
                 ) {
                     items(items = shops, key = { item -> item.id }) { coffeeShop ->
@@ -108,6 +110,10 @@ fun CoffeeShopCard(
         modifier = Modifier
             .fillMaxWidth()
             .clickable { onClick() },
+        colors = CardDefaults.cardColors(containerColor = Champagne),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 2.dp
+        )
     ) {
         Text(
             modifier = Modifier
