@@ -30,7 +30,7 @@ fun AppTopBar(
             .fillMaxWidth()
             .statusBarsPadding()
             .shadow(
-                elevation = 10.dp, //or whatever value
+                elevation = 10.dp,
                 spotColor = SilverSand,
             ),
         title = {

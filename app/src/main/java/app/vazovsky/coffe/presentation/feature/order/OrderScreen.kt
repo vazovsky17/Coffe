@@ -92,7 +92,7 @@ fun OrderScreen(
                     }
                 }
 
-                if (isOrderPaid){
+                if (isOrderPaid) {
                     Text(
                         modifier = Modifier.align(Alignment.Center),
                         text = stringResource(R.string.order_paid),
@@ -164,7 +164,7 @@ fun ProductCard(
             Row(
                 modifier = Modifier
                     .fillMaxHeight()
-                    .padding(end = 10.dp),
+                    .padding(top = 14.dp, start = 10.dp, bottom = 9.dp, end = 10.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.End,
             ) {
