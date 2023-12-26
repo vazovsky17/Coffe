@@ -56,14 +56,8 @@ fun LoginScreen(
                 .fillMaxSize(),
             verticalArrangement = Arrangement.Center
         ) {
-            Text(
-                text = stringResource(R.string.login_email),
-                style = MaterialTheme.typography.titleSmall,
-                color = CoyoteBrown,
-            )
-            Space(8.dp)
-
             AppTextField(
+                title = stringResource(R.string.login_email),
                 value = email.orDefault(),
                 onValueChange = { text ->
                     viewModel.emailLiveData.value = text
@@ -74,14 +68,8 @@ fun LoginScreen(
             )
             Space(24.dp)
 
-            Text(
-                text = stringResource(R.string.login_password),
-                style = MaterialTheme.typography.titleSmall,
-                color = CoyoteBrown,
-            )
-            Space(8.dp)
-
             AppTextField(
+                title = stringResource(R.string.login_password),
                 value = password.orDefault(),
                 onValueChange = { text ->
                     viewModel.passwordLiveData.value = text

@@ -57,14 +57,8 @@ fun RegistrationScreen(
                 .fillMaxSize(),
             verticalArrangement = Arrangement.Center
         ) {
-            Text(
-                text = stringResource(R.string.registration_email),
-                style = MaterialTheme.typography.titleSmall,
-                color = CoyoteBrown,
-            )
-            Space(6.dp)
-
             AppTextField(
+                title = stringResource(R.string.registration_email),
                 value = email.orDefault(),
                 onValueChange = { text ->
                     viewModel.emailLiveData.value = text
@@ -75,13 +69,8 @@ fun RegistrationScreen(
             )
             Space(24.dp)
 
-            Text(
-                text = stringResource(R.string.registration_password),
-                style = MaterialTheme.typography.titleSmall,
-                color = CoyoteBrown,
-            )
-            Space(6.dp)
             AppTextField(
+                title = stringResource(R.string.registration_password),
                 value = password.orDefault(),
                 onValueChange = { text ->
                     viewModel.passwordLiveData.value = text
@@ -93,13 +82,8 @@ fun RegistrationScreen(
             )
             Space(24.dp)
 
-            Text(
-                text = stringResource(R.string.registration_repeat_password),
-                style = MaterialTheme.typography.titleSmall,
-                color = CoyoteBrown,
-            )
-            Space(6.dp)
             AppTextField(
+                title = stringResource(R.string.registration_repeat_password),
                 value = repeatPassword.orDefault(),
                 onValueChange = { text ->
                     viewModel.repeatPasswordLiveData.value = text

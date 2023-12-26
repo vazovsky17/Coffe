@@ -1,13 +1,14 @@
 package app.vazovsky.coffe.presentation.view
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material3.Button
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,6 +18,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import app.vazovsky.coffe.R
+import app.vazovsky.coffe.presentation.ui.theme.Champagne
+import app.vazovsky.coffe.presentation.ui.theme.PaleTaupe
 
 @Composable
 fun InfoDialog(
@@ -31,6 +34,7 @@ fun InfoDialog(
             modifier = Modifier
                 .wrapContentSize()
                 .padding(horizontal = 16.dp)
+                .background(PaleTaupe, RoundedCornerShape(12.dp))
         ) {
             Column(
                 modifier = Modifier.padding(
@@ -44,7 +48,8 @@ fun InfoDialog(
                 title?.let {
                     Text(
                         text = title,
-                        fontSize = 20.sp,
+                        style = MaterialTheme.typography.titleMedium.copy(fontSize = 20.sp),
+                        color = Champagne,
                     )
                     Space(16.dp)
                 }
@@ -52,24 +57,23 @@ fun InfoDialog(
                 text?.let {
                     Text(
                         text = text,
-                        fontSize = 14.sp,
+                        style = MaterialTheme.typography.bodyLarge.copy(fontSize = 14.sp),
+                        color = Champagne,
                     )
                     Space(20.dp)
                 }
 
                 Box(modifier = Modifier.fillMaxWidth()) {
-
                     Row(
                         modifier = Modifier.align(Alignment.TopEnd),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Space(24.dp)
-                        Button(
-                            modifier = Modifier.height(40.dp),
+                        AppButton(
+                            text = confirmText,
+                            height = 40.dp,
                             onClick = onConfirmClick,
-                        ) {
-                            Text(text = confirmText)
-                        }
+                        )
                     }
                 }
             }

@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import app.vazovsky.coffe.presentation.ui.theme.Champagne
 import app.vazovsky.coffe.presentation.ui.theme.PullmanGreen
@@ -17,6 +18,7 @@ import app.vazovsky.coffe.presentation.ui.theme.PullmanGreen
 @Composable
 fun AppButton(
     modifier: Modifier = Modifier,
+    height: Dp = 48.dp,
     text: String,
     enabled: Boolean = true,
     onClick: () -> Unit,
@@ -24,7 +26,7 @@ fun AppButton(
     Button(
         modifier = modifier
             .fillMaxWidth()
-            .height(48.dp),
+            .height(height),
         shape = RoundedCornerShape(24.dp),
         enabled = enabled,
         colors = ButtonDefaults.buttonColors(

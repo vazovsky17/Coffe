@@ -47,7 +47,7 @@ fun ShopsScreen(
     val (showUnauthorizedDialog, setShowUnauthorizedDialog) = remember { mutableStateOf(false) }
 
     SideEffect {
-        if (shops == null) {
+        if (shops == null && error == null) {
             viewModel.getNearestCoffeeShops {
                 setShowUnauthorizedDialog(true)
             }
