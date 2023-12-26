@@ -44,7 +44,7 @@ class MenuViewModel @Inject constructor(
                 item
             }
         }
-        _productsLiveData.postValue(products)
+        _productsLiveData.value = products
     }
 
     fun unselectProduct(product: Product) {
@@ -55,6 +55,6 @@ class MenuViewModel @Inject constructor(
                 item
             }
         }
-        _productsLiveData.postValue(products)
+        _productsLiveData.value = products
     }
 }

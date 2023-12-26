@@ -61,8 +61,10 @@ fun MenuScreen(
     val (showUnauthorizedDialog, setShowUnauthorizedDialog) = remember { mutableStateOf(false) }
 
     SideEffect {
-        viewModel.getMenu(shopId) {
-            setShowUnauthorizedDialog(true)
+        if (products == null){
+            viewModel.getMenu(shopId) {
+                setShowUnauthorizedDialog(true)
+            }
         }
     }
 
