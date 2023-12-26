@@ -43,6 +43,7 @@ fun ShopsScreen(
 ) {
     val viewModel: ShopsViewModel = hiltViewModel()
     val shops = viewModel.coffeeShops.observeAsState().value
+    val error = viewModel.errorLiveData.observeAsState().value
     val (showUnauthorizedDialog, setShowUnauthorizedDialog) = remember { mutableStateOf(false) }
 
     SideEffect {
@@ -74,10 +75,9 @@ fun ShopsScreen(
                 }
             }
 
-            // TODO проверить еще на ошибку
-            if (shops == null) {
+            if (shops == null && error == null) {
                 CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-            } else if (shops.isEmpty()) {
+            } else if (shops.isNullOrEmpty()) {
                 EmptyContent(
                     modifier = Modifier.align(Alignment.Center),
                     text = stringResource(R.string.shops_empty_content),

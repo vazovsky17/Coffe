@@ -97,9 +97,6 @@ fun MainNavGraph() {
                         if (shops != null) {
                             MapScreen(
                                 shops = shops,
-                                onShopClick = { location ->
-                                    navigationActions.navigateToMenu(location.id)
-                                },
                                 onBackPressed = navigationActions::navigateUp,
                             )
                         }

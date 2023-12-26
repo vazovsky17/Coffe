@@ -2,6 +2,7 @@ package app.vazovsky.coffe.data.remote.adapter
 
 import app.vazovsky.coffe.data.remote.exception.Either
 import app.vazovsky.coffe.data.remote.exception.Failure
+import app.vazovsky.coffe.extensions.orDefault
 import okhttp3.Request
 import okhttp3.ResponseBody
 import okio.Timeout
@@ -38,6 +39,11 @@ internal class NetworkResponseCall<S : Any>(
                             this@NetworkResponseCall,
                             Response.success(Either.Failure(Failure.Unauthorized(response.message())))
                         )
+                    } else if (response.code() == 400) {
+                        callback.onResponse(
+                            this@NetworkResponseCall,
+                            Response.success(Either.Failure(Failure.BadRequest(response.message())))
+                        )
                     } else {
                         val errorFailure: Failure = Failure.UnknownError()
                         callback.onResponse(
@@ -51,7 +57,7 @@ internal class NetworkResponseCall<S : Any>(
             }
 
             override fun onFailure(call: Call<S>, throwable: Throwable) {
-                val leftFailure = Failure.UnknownError(throwable.message)
+                val leftFailure = Failure.UnknownError(throwable.message.orDefault())
                 callback.onResponse(
                     this@NetworkResponseCall,
                     Response.success(Either.Failure(leftFailure))

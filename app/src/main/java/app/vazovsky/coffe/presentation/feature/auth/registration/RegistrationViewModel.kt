@@ -24,8 +24,7 @@ class RegistrationViewModel @Inject constructor(
     val tokenLiveData: LiveData<Token> = _tokenLiveData
 
     /** Текст ошибки */
-    private val _errorLiveData = MutableLiveData<String>()
-    val errorLiveData: LiveData<String> = _errorLiveData
+    val errorLiveData = MutableLiveData<String>()
 
     fun register(login: String, password: String) {
         registerUseCase(
@@ -35,8 +34,9 @@ class RegistrationViewModel @Inject constructor(
             ),
         ) { result ->
             result.fold(
-                ifFailure = { error ->
-                    /** TODO можно прописать ошибки */
+                ifFailure = { failure ->
+                    errorLiveData.value = failure.message
+                    true
                 },
                 ifSuccess = { token ->
                     saveAuthToken(token)
@@ -56,7 +56,7 @@ class RegistrationViewModel @Inject constructor(
                 }
             }
         } else {
-            _errorLiveData.value = "Не удалось зарегистрироваться"
+            errorLiveData.value = "Не удалось зарегистрироваться"
         }
     }
 }

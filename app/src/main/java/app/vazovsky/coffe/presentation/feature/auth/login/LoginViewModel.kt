@@ -22,8 +22,7 @@ class LoginViewModel @Inject constructor(
     val tokenLiveData: LiveData<Token> = _tokenLiveData
 
     /** Текст ошибки */
-    private val _errorLiveData = MutableLiveData<String>()
-    val errorLiveData: LiveData<String> = _errorLiveData
+    val errorLiveData = MutableLiveData<String>()
 
     fun login(login: String, password: String) {
         loginUseCase(
@@ -33,10 +32,12 @@ class LoginViewModel @Inject constructor(
             ),
         ) { result ->
             result.fold(
-                ifFailure = { error ->
-                    /** TODO можно прописать ошибки */
+                ifFailure = { failure ->
+                    errorLiveData.value = failure.message
+                    true
                 },
                 ifSuccess = { token ->
+                    errorLiveData.value = null
                     saveAuthToken(token)
                 }
             )
@@ -54,7 +55,7 @@ class LoginViewModel @Inject constructor(
                 }
             }
         } else {
-            _errorLiveData.value = "Не удалось авторизоваться"
+            errorLiveData.value = "Не удалось авторизоваться"
         }
     }
 }

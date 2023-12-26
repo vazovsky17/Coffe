@@ -18,17 +18,29 @@ class MenuViewModel @Inject constructor(
     private val _productsLiveData = MutableLiveData<List<Product>>()
     val productsLiveData: LiveData<List<Product>> = _productsLiveData
 
+    val errorLiveData = MutableLiveData<String>()
+
     fun getMenu(id: Int, unauthorizedCallback: () -> Unit) {
         getMenuUseCase(
             GetMenuUseCase.Params(id)
         ) { result ->
             result.fold(
                 ifFailure = { failure ->
+                    when (failure) {
+                        is Failure.Unauthorized -> {
+                            unauthorizedCallback()
+                            errorLiveData.value = failure.message
+                        }
+
+                        else -> errorLiveData.value = failure.message
+                    }
                     if (failure is Failure.Unauthorized) {
                         unauthorizedCallback()
+                        errorLiveData.value = failure.message
                     }
                 },
                 ifSuccess = { products ->
+                    errorLiveData.value = null
                     _productsLiveData.value = products
                     true
                 }

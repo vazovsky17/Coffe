@@ -19,15 +19,27 @@ class ShopsViewModel @Inject constructor(
     private val _coffeeShops = MutableLiveData<List<Location>>()
     val coffeeShops: LiveData<List<Location>> = _coffeeShops
 
+    val errorLiveData = MutableLiveData<String>()
+
     fun getNearestCoffeeShops(unauthorizedCallback: () -> Unit) {
         getShopsUseCase(params = UseCase.None) { result ->
             result.fold(
                 ifFailure = { failure ->
+                    when (failure) {
+                        is Failure.Unauthorized -> {
+                            unauthorizedCallback()
+                            errorLiveData.value = failure.message
+                        }
+
+                        else -> errorLiveData.value = failure.message
+                    }
                     if (failure is Failure.Unauthorized) {
                         unauthorizedCallback()
+                        errorLiveData.value = failure.message
                     }
                 },
                 ifSuccess = { locations ->
+                    errorLiveData.value = null
                     _coffeeShops.value = locations
                     true
                 }

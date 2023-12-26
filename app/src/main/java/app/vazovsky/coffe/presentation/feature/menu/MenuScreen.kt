@@ -44,8 +44,8 @@ import app.vazovsky.coffe.presentation.ui.theme.Champagne
 import app.vazovsky.coffe.presentation.ui.theme.CoyoteBrown
 import app.vazovsky.coffe.presentation.ui.theme.PaleTaupe
 import app.vazovsky.coffe.presentation.view.AppButton
-import app.vazovsky.coffe.presentation.view.EmptyContent
 import app.vazovsky.coffe.presentation.view.AppTopBar
+import app.vazovsky.coffe.presentation.view.EmptyContent
 import app.vazovsky.coffe.presentation.view.UnauthorizedDialog
 import coil.compose.rememberAsyncImagePainter
 
@@ -58,10 +58,11 @@ fun MenuScreen(
 ) {
     val viewModel: MenuViewModel = hiltViewModel()
     val products = viewModel.productsLiveData.observeAsState().value
+    val error = viewModel.errorLiveData.observeAsState().value
     val (showUnauthorizedDialog, setShowUnauthorizedDialog) = remember { mutableStateOf(false) }
 
     SideEffect {
-        if (products == null){
+        if (products == null) {
             viewModel.getMenu(shopId) {
                 setShowUnauthorizedDialog(true)
             }
@@ -89,10 +90,9 @@ fun MenuScreen(
                 }
             }
 
-            // TODO проверить еще на ошибку
-            if (products == null) {
+            if (products == null && error == null) {
                 CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-            } else if (products.isEmpty()) {
+            } else if (products.isNullOrEmpty()) {
                 EmptyContent(
                     modifier = Modifier.align(Alignment.Center),
                     text = stringResource(R.string.menu_empty_content),
