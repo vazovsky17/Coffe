@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,6 +28,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import app.vazovsky.coffe.R
 import app.vazovsky.coffe.domain.model.Location
 import app.vazovsky.coffe.presentation.ui.theme.Champagne
+import app.vazovsky.coffe.presentation.ui.theme.CoyoteBrown
+import app.vazovsky.coffe.presentation.ui.theme.PaleTaupe
 import app.vazovsky.coffe.presentation.view.AppButton
 import app.vazovsky.coffe.presentation.view.EmptyContent
 import app.vazovsky.coffe.presentation.view.TopBar
@@ -119,7 +122,9 @@ fun CoffeeShopCard(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 14.dp, start = 10.dp, end = 10.dp),
-            text = coffeeShop.name
+            text = coffeeShop.name,
+            color = CoyoteBrown,
+            style = MaterialTheme.typography.titleLarge,
         )
         Text(
             modifier = Modifier
@@ -133,6 +138,8 @@ fun CoffeeShopCard(
                 append(" ")
                 append(stringResource(id = R.string.shops_distance_postfix))
             },
+            style = MaterialTheme.typography.bodySmall,
+            color = PaleTaupe,
         )
     }
 }

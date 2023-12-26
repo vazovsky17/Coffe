@@ -19,6 +19,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -39,6 +40,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import app.vazovsky.coffe.R
 import app.vazovsky.coffe.domain.model.Product
+import app.vazovsky.coffe.presentation.ui.theme.Champagne
+import app.vazovsky.coffe.presentation.ui.theme.CoyoteBrown
+import app.vazovsky.coffe.presentation.ui.theme.PaleTaupe
 import app.vazovsky.coffe.presentation.view.AppButton
 import app.vazovsky.coffe.presentation.view.EmptyContent
 import app.vazovsky.coffe.presentation.view.TopBar
@@ -153,6 +157,8 @@ fun ProductCard(
             text = product.name,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
+            style = MaterialTheme.typography.titleSmall,
+            color = PaleTaupe,
         )
         Row(
             modifier = Modifier
@@ -165,20 +171,28 @@ fun ProductCard(
                     append(" ")
                     append(stringResource(id = R.string.menu_currency))
                 },
+                style = MaterialTheme.typography.bodyMedium,
+                color = CoyoteBrown,
             )
             Row(verticalAlignment = Alignment.CenterVertically) {
                 IconButton(onClick = unselectProduct) {
                     Icon(
-                        imageVector = ImageVector.vectorResource(R.drawable.ic_minus), contentDescription = null
+                        imageVector = ImageVector.vectorResource(R.drawable.ic_minus),
+                        contentDescription = null,
+                        tint = Champagne,
                     )
                 }
                 Text(
                     modifier = Modifier.fillMaxHeight(),
                     text = product.count.toString(),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = CoyoteBrown,
                 )
                 IconButton(onClick = selectProduct) {
                     Icon(
-                        imageVector = ImageVector.vectorResource(R.drawable.ic_plus), contentDescription = null
+                        imageVector = ImageVector.vectorResource(R.drawable.ic_plus),
+                        contentDescription = null,
+                        tint = Champagne,
                     )
                 }
             }

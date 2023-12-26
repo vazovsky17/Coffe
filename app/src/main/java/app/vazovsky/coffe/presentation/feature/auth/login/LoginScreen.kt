@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -20,6 +20,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import app.vazovsky.coffe.R
 import app.vazovsky.coffe.extensions.orDefault
+import app.vazovsky.coffe.presentation.ui.theme.CoyoteBrown
+import app.vazovsky.coffe.presentation.ui.theme.PullmanGreen
 import app.vazovsky.coffe.presentation.view.AppButton
 import app.vazovsky.coffe.presentation.view.Space
 import app.vazovsky.coffe.presentation.view.TopBar
@@ -50,10 +52,13 @@ fun LoginScreen(
             modifier = Modifier
                 .padding(top = innerPadding.calculateTopPadding(), start = 18.dp, end = 18.dp)
                 .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(text = stringResource(R.string.registration_email))
+            Text(
+                text = stringResource(R.string.registration_email),
+                style = MaterialTheme.typography.titleSmall,
+                color = CoyoteBrown,
+            )
             Space(8.dp)
             TextField(
                 modifier = Modifier.fillMaxWidth(),
@@ -64,7 +69,11 @@ fun LoginScreen(
             )
             Space(24.dp)
 
-            Text(text = stringResource(R.string.registration_password))
+            Text(
+                text = stringResource(R.string.registration_password),
+                style = MaterialTheme.typography.titleSmall,
+                color = CoyoteBrown,
+            )
             Space(8.dp)
             TextField(
                 modifier = Modifier.fillMaxWidth(),
@@ -93,6 +102,8 @@ fun LoginScreen(
                     .align(Alignment.End)
                     .clickable { navigateToRegistration() },
                 text = stringResource(R.string.login_not_registered),
+                style = MaterialTheme.typography.titleMedium,
+                color = CoyoteBrown,
             )
         }
     }
