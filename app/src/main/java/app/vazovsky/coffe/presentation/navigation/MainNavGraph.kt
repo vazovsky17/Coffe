@@ -22,6 +22,7 @@ import app.vazovsky.coffe.presentation.feature.map.MapScreen
 import app.vazovsky.coffe.presentation.feature.menu.MenuScreen
 import app.vazovsky.coffe.presentation.feature.order.OrderScreen
 import app.vazovsky.coffe.presentation.feature.shops.ShopsScreen
+import app.vazovsky.coffe.presentation.feature.splash.SplashScreen
 import app.vazovsky.coffe.presentation.main.MainViewModel
 import app.vazovsky.coffe.presentation.navigation.Args.ARG_PRODUCTS
 import app.vazovsky.coffe.presentation.navigation.Args.ARG_SHOPS
@@ -52,7 +53,9 @@ fun MainNavGraph() {
             navController = navController,
             startDestination = startDestination,
         ) {
-            composable(Graph.Splash.route) {}
+            composable(Graph.Splash.route) {
+                SplashScreen()
+            }
 
             navigation(route = Graph.AUTH, startDestination = AuthScreen.Registration.route) {
 
